@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>GYMSTER - Gym HTML Template</title>
+    <title>IntelliFitHub - Gym HTML Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -36,7 +36,7 @@
         <div class="row gx-0">
             <div class="col-lg-3 bg-dark d-none d-lg-block">
                 <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                    <h1 class="m-0 display-4 text-primary text-uppercase">Gymster</h1>
+                    <h1 class="m-0 display-4 text-primary text-uppercase">IntelliFitHub</h1>
                 </a>
             </div>
             <div class="col-lg-9">
@@ -73,7 +73,7 @@
                 </div>
                 <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0 px-lg-5">
                     <a href="index.html" class="navbar-brand d-block d-lg-none">
-                        <h1 class="m-0 display-4 text-primary text-uppercase">Gymster</h1>
+                        <h1 class="m-0 display-4 text-primary text-uppercase">IntelliFitHub</h1>
                     </a>
                     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
@@ -112,7 +112,7 @@
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 900px;">
                             <h5 class="text-white text-uppercase">Best Gym Center</h5>
-                            <h1 class="display-2 text-white text-uppercase mb-md-4">Build Your Body Strong With Gymster</h1>
+                            <h1 class="display-2 text-white text-uppercase mb-md-4">Build Your Body Strong With IntelliFitHub</h1>
                             <a href="" class="btn btn-primary py-md-3 px-md-5 me-3">Join Us</a>
                             <a href="" class="btn btn-light py-md-3 px-md-5">Contact Us</a>
                         </div>
@@ -143,7 +143,63 @@
         </div>
     </div>
     <!-- Carousel End -->
-
+    
+    <!-- Calculator Start -->
+    <div class="container-fluid p-5">
+        <h1 class="mb-4">TDEE Calculator</h1>
+    
+    <form id="tdee-form"> 
+      <div class="mb-3">
+        <label for="weight">Weight:</label>
+        <input type="number" id="weight" class="form-control">
+      </div>
+      
+      <div class="mb-3">
+        <label for="height">Height:</label>
+        <input type="number" id="height" class="form-control">
+      </div>
+      
+      <div class="mb-3">
+        <label for="age">Age:</label>
+        <input type="number" id="age" class="form-control">
+      </div>
+      
+      <div class="mb-3">
+        <label for="gender">Gender:</label>
+        <select id="gender" class="form-select">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      
+      <div class="mb-3">
+        <label for="activity-level">Activity Level:</label>
+        <select id="activity-level" class="form-select">
+          <option value="1.2">Sedentary (little or no exercise)</option>
+          <option value="1.375">Lightly active (light exercise/sports 1-3 days/week)</option>
+          <option value="1.55">Moderately active (moderate exercise/sports 3-5 days/week)</option>
+          <option value="1.725">Very active (hard exercise/sports 6-7 days a week)</option>
+          <option value="1.9">Extra active (very hard exercise/sports and a physical job)</option>
+        </select>
+      </div>
+      
+      <div class="mb-3">
+        <label for="unit-system">Unit System:</label>
+        <select id="unit-system" class="form-select">
+          <option value="imperial">Imperial</option>
+          <option value="metric">Metric</option>
+        </select>
+      </div>
+      
+      <button type="submit" class="btn btn-primary" name="btnSubmit" value="Submit">Calculate</button>
+    </form>
+    
+    <div id="result" class="mt-4" style="display: none;">
+      <h3>Your Total Daily Energy Expenditure (TDEE) is:</h3>
+      <p id="tdee-result"></p>
+    </div>
+    </div>
+    <!-- Calculator End -->
 
     <!-- About Start -->
     <div class="container-fluid p-5">
@@ -156,7 +212,7 @@
             <div class="col-lg-7">
                 <div class="mb-4">
                     <h5 class="text-primary text-uppercase">About Us</h5>
-                    <h1 class="display-3 text-uppercase mb-0">Welcome to Gymster</h1>
+                    <h1 class="display-3 text-uppercase mb-0">Welcome to IntelliFitHub</h1>
                 </div>
                 <h4 class="text-body mb-4">Diam dolor diam ipsum tempor sit. Clita erat ipsum et lorem stet no labore lorem sit clita duo justo magna dolore</h4>
                 <p class="mb-4">Nonumy erat diam duo labore clita. Sit magna ipsum dolor sed ea duo at ut. Tempor sit lorem sit magna ipsum duo. Sit eos dolor ut sea rebum, diam sea rebum lorem kasd ut ipsum dolor est ipsum. Et stet amet justo amet clita erat, ipsum sed at ipsum eirmod labore lorem.</p>
@@ -989,6 +1045,32 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <!-- Ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+          $("#tdee-form").submit(function (event) {
+            event.preventDefault();
+    
+            const form = $(this);
+            const url = "/calculate-tdee";
+    
+            $.ajax({
+              type: "POST",
+              url: url,
+              data: form.serialize(),
+              success: function (response) {
+                $("#tdee-result").text(response);
+                $("#result").show();
+              },
+              error: function (error) {
+                console.log(error);
+              }
+            });
+          });
+        });
+      </script>
 </body>
 
 </html>
