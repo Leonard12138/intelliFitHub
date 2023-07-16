@@ -16,13 +16,13 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/calculate-tdee")
 public class CalculateTdeeController {
-    // @Autowired
-    // protected CalculationService calculationService;
+    @Autowired
+    protected CalculationService calculationService;
 
     @PostMapping
     public ResponseEntity<Object> delete(TdeeCalculator tdeeCalculator) throws Exception {
         log.info("*** Calculating TDEE ***");
-        // double result = calculationService.CalculateTDEE(tdeeCalculator);
-        return new ResponseEntity<>(999, HttpStatus.OK);
+        double result = calculationService.CalculateTDEE(tdeeCalculator);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
