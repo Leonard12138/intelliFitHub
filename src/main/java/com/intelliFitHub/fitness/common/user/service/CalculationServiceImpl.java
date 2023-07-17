@@ -11,20 +11,46 @@ import lombok.extern.slf4j.Slf4j;
 public class CalculationServiceImpl implements CalculationService{
 
     @Override
-    public double CalculateTDEE(TdeeCalculator tdeeCalculator) throws Exception {
-        try {
-            //TODO: calculation
-            String logMessage = String.format("Weight: %.2f, Height: %.2f, Age: %d, Gender: %s, Activity Level: %.3f, Unit System: %s",
-            tdeeCalculator.getWeight(), tdeeCalculator.getHeight(), tdeeCalculator.getAge(),
-            tdeeCalculator.getGender(), tdeeCalculator.getActivityLevel(), tdeeCalculator.getUnitSystem());
+        public int CalculateTDEE(TdeeCalculator tdeeCalculator) throws Exception {
+            try {
+                double weight = tdeeCalculator.getWeight();
+                double height = tdeeCalculator.getHeight();
+                int age = tdeeCalculator.getAge();
+                String gender = tdeeCalculator.getGender();
+                double activityLevel = tdeeCalculator.getActivityLevel();
+                String unitSystem = tdeeCalculator.getUnitSystem();
 
-            log.info(logMessage);
-            return 8964.8964;
-        } catch (Exception e) {
-            // TODO: handle exception
+                // Convert weight to kilograms if it's in imperial units (pounds)
+                if ("imperial".equals(unitSystem)) {
+                    weight *= 0.453592; // 1 pound = 0.453592 kilograms
+                }
+
+                // Convert height to centimeters if it's in imperial units (inches)
+                if ("imperial".equals(unitSystem)) {
+                    height *= 2.54; // 1 inch = 2.54 centimeters
+                }
+
+                // Calculate BMR using the Mifflin-St Jeor equation based on gender
+                double bmr = 0;
+                if ("male".equals(gender)) {
+                    bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+                } else if ("female".equals(gender)) {
+                    bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+                } 
+
+                // Calculate TDEE by multiplying BMR with the activity level
+                double tdee = bmr * activityLevel;
+
+                // Log the calculated TDEE
+                // String logMessage = String.format("Weight: %.2f, Height: %.2f, Age: %d, Gender: %s, Activity Level: %.3f, Unit System: %s, TDEE: %.2f",
+                //         weight, height, age, gender, activityLevel, unitSystem, tdee);
+
+                // log.info(logMessage);
+
+                return (int) Math.round(tdee);
+            } catch (Exception e) {
+                log.error("Error while calculating TDEE: {}", e.getMessage());
+                throw e;
+            }
         }
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'CalculateTDEE'");
     }
-    
-}

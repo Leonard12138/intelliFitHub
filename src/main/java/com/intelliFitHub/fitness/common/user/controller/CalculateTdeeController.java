@@ -22,7 +22,7 @@ public class CalculateTdeeController {
     @PostMapping
     public ResponseEntity<Object> delete(TdeeCalculator tdeeCalculator) throws Exception {
         log.info("*** Calculating TDEE ***");
-        double result = calculationService.CalculateTDEE(tdeeCalculator);
+        int result = calculationService.CalculateTDEE(tdeeCalculator);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
