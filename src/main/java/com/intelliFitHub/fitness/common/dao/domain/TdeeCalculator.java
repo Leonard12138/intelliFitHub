@@ -15,6 +15,6 @@ public class TdeeCalculator {
     private int age;
     private String gender;
     private double activityLevel;
-    private String UnitSystem;
+    private String unitSystem;
 
 }

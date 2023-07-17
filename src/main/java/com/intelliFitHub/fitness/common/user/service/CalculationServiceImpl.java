@@ -14,6 +14,11 @@ public class CalculationServiceImpl implements CalculationService{
     public double CalculateTDEE(TdeeCalculator tdeeCalculator) throws Exception {
         try {
             //TODO: calculation
+            String logMessage = String.format("Weight: %.2f, Height: %.2f, Age: %d, Gender: %s, Activity Level: %.3f, Unit System: %s",
+            tdeeCalculator.getWeight(), tdeeCalculator.getHeight(), tdeeCalculator.getAge(),
+            tdeeCalculator.getGender(), tdeeCalculator.getActivityLevel(), tdeeCalculator.getUnitSystem());
+
+            log.info(logMessage);
             return 8964.8964;
         } catch (Exception e) {
             // TODO: handle exception
